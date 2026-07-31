@@ -7,8 +7,8 @@ from tqdm import tqdm # Để hiển thị thanh tiến trình cho đẹp
 # ==========================================
 # CẤU HÌNH THƯ MỤC VÀ MÔ HÌNH
 # ==========================================
-INPUT_JSON = "./ingestion/uet_rag_chunks.json" # File kết quả từ bước trước
-DB_PATH = "./vector_db" # Thư mục lưu database cục bộ
+INPUT_JSON = "./ingestion/uet_rag_chunks.json" 
+DB_PATH = "./ingestion/vector_db" # Thư mục lưu database cục bộ
 COLLECTION_NAME = "uet_legal_docs"
 MODEL_NAME = "BAAI/bge-m3"
 BATCH_SIZE = 32 # Xử lý theo cụm để tránh tràn RAM/VRAM
@@ -16,14 +16,14 @@ BATCH_SIZE = 32 # Xử lý theo cụm để tránh tràn RAM/VRAM
 # ==========================================
 # 1. KHỞI TẠO MÔ HÌNH VÀ DATABASE
 # ==========================================
-print(f"⏳ Đang tải mô hình Embedding '{MODEL_NAME}'... (Lần đầu sẽ hơi lâu để tải model)")
+print(f"⏳ Đang tải mô hình Embedding '{MODEL_NAME}'")
 # Sử dụng thiết bị có sẵn (Tự động nhận CUDA nếu có GPU, không thì chạy CPU)
 model = SentenceTransformer(MODEL_NAME)
 
 print(f"🗄️ Đang khởi tạo ChromaDB tại thư mục: {DB_PATH}")
 chroma_client = chromadb.PersistentClient(path=DB_PATH)
 
-# Tạo collection (Nếu đã có thì lấy ra dùng tiếp)
+# Tạo collection 
 # bge-m3 mặc định sinh ra vector có số chiều (dimension) là 1024
 collection = chroma_client.get_or_create_collection(
     name=COLLECTION_NAME,
